@@ -1,4 +1,4 @@
-# 💀 WEB KILLER X OVI - স্ট্রেস টেস্ট টুল
+# 💀 WEB KILLER X OVI - অলটিমেট স্ট্রেস টেস্ট টুল
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
@@ -6,19 +6,25 @@
 
 > **শুধুমাত্র আপনার নিজের ওয়েবসাইটের সুরক্ষা পরীক্ষার জন্য। অন্যের ওয়েবসাইটে ব্যবহার আইনত দণ্ডনীয়।**
 
-## 📌 বৈশিষ্ট্যসমূহ
-- ⚡ HTTP/HTTPS GET ফ্লাড আক্রমণ
-- 🧵 মাল্টি-থ্রেডেড (যেকোনো সংখ্যক থ্রেড সাপোর্ট)
-- 🔄 প্রক্সি লিস্ট সাপোর্ট
-- 📊 রিয়েল-টাইম স্ট্যাটাস (পাঠানো/ব্যর্থ)
-- 🛡️ SSL সার্টিফিকেট ভেরিফিকেশন বন্ধ (HTTPS-এর জন্য)
+## ⚡ বৈশিষ্ট্যসমূহ
+- ✅ HTTP/HTTPS GET ফ্লাড
+- ✅ Cloudflare Bypass (CFB)
+- ✅ Cloudflare Under Attack Mode Bypass (CFBUAM)
+- ✅ AntiDDoS Bypass (BYPASS)
+- ✅ DDoS Guard Bypass (DGB)
+- ✅ Arvan Cloud Bypass (AVB)
+- ✅ Slowloris আক্রমণ (SLOW)
+- ✅ UDP Flood (Layer 4)
+- ✅ SYN Flood (Layer 4) - সিমুলেটেড
+- ✅ TCP Flood (Layer 4)
+- ✅ প্রক্সি সাপোর্ট
+- ✅ কমান্ড-লাইন আর্গুমেন্ট
 
-## 📥 ইনস্টলেশন (Termux / Linux)
-
+## 📥 ইনস্টলেশন (Termux)
 ```bash
 pkg update && pkg upgrade -y
 pkg install python git -y
 pip install requests
-git clone https://github.com/cyberghostxovi4404/webkiller-x-ovi.git
+git clone https://github.com/আপনার-ইউজারনেম/webkiller-x-ovi.git
 cd webkiller-x-ovi
-python webkillerx.py
+python webkillerx.py -h
