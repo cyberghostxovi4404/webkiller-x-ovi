@@ -1,18 +1,24 @@
-# WEB KILLER X OVI 💀
+# 💀 WEB KILLER X OVI - স্ট্রেস টেস্ট টুল
 
-Termux-এর জন্য একটি শক্তিশালী HTTP/HTTPS স্ট্রেস টেস্ট টুল।  
-**শুধুমাত্র আপনার নিজের ওয়েবসাইটে ব্যবহার করুন।**
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Platform](https://img.shields.io/badge/Platform-Termux%20%7C%20Linux-lightgrey)
 
-## বৈশিষ্ট্য
-- HTTP/HTTPS GET ফ্লাড
-- মাল্টি-থ্রেডেড
-- প্রক্সি সাপোর্ট
-- রিয়েল-টাইম স্ট্যাটাস
+> **শুধুমাত্র আপনার নিজের ওয়েবসাইটের সুরক্ষা পরীক্ষার জন্য। অন্যের ওয়েবসাইটে ব্যবহার আইনত দণ্ডনীয়।**
 
-## ইনস্টলেশন
+## 📌 বৈশিষ্ট্যসমূহ
+- ⚡ HTTP/HTTPS GET ফ্লাড আক্রমণ
+- 🧵 মাল্টি-থ্রেডেড (যেকোনো সংখ্যক থ্রেড সাপোর্ট)
+- 🔄 প্রক্সি লিস্ট সাপোর্ট
+- 📊 রিয়েল-টাইম স্ট্যাটাস (পাঠানো/ব্যর্থ)
+- 🛡️ SSL সার্টিফিকেট ভেরিফিকেশন বন্ধ (HTTPS-এর জন্য)
+
+## 📥 ইনস্টলেশন (Termux / Linux)
+
 ```bash
+pkg update && pkg upgrade -y
 pkg install python git -y
 pip install requests
-git clone https://github.com/cyberghostxovi4404/webkiller-x-ovi
+git clone https://github.com/cyberghostxovi4404/webkiller-x-ovi.git
 cd webkiller-x-ovi
 python webkillerx.py
