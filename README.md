@@ -25,7 +25,7 @@
 pkg update && pkg upgrade -y
 pkg install python git -y
 pip install requests
-git clone https://github.com/আপনার-ইউজারনেম/webkiller-x-ovi.git
+git clone https://github.com/cyberghostxovi4404/webkiller-x-ovi.git
 cd webkiller-x-ovi
 python webkillerx.py -h
 
